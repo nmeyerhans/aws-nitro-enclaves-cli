@@ -1,0 +1,31 @@
+Source: aws-nitro-enclaves-cli
+Section: unknown
+Priority: optional
+Maintainer: Noah Meyerhans <noahm@debian.org>
+Build-Depends: debhelper-compat (= 13),
+ libssl-dev,
+ rustc,
+ cargo,
+ make,
+ llvm,
+ clang,
+ linux-headers-6.0.0-2-amd64
+Standards-Version: 4.5.1
+Homepage: <insert the upstream URL, if relevant>
+Rules-Requires-Root: no
+
+Package: aws-nitro-enclaves-cli
+Architecture: any
+Multi-Arch: foreign
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Nitro Enclaves Command Line Interface (Nitro CLI)
+ Tools and commands used for managing the lifecycle of enclaves. The
+ Nitro CLI needs to be installed on the parent instance, and it can be
+ used to start, manage, and terminate enclaves.
+
+Package: aws-nitro-enclaves-cli-dev
+Architecture: any
+Multi-Arch: foreign
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Nitro Enclaves (Nitro CLI) dev resources
+ Resources required in order to build enclave images.

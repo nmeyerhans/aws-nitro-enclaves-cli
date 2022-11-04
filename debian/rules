@@ -1,0 +1,31 @@
+#!/usr/bin/make -f
+# You must remove unused comment lines for the released package.
+#export DH_VERBOSE = 1
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	make nitro-cli-native
+	make vsock-proxy-native
+
+destdir=debian/tmp
+
+override_dh_auto_install:
+	make NITRO_CLI_INSTALL_DIR=$(destdir) BIN_DIR=/usr/bin UNIT_DIR=/lib/systemd/system \
+		VAR_DIR=$(destdir)/var install-tools
+	mkdir -p $(destdir)/usr/include
+	cp -r include/* $(destdir)/usr/include
+
+override_dh_auto_clean:
+	dh_auto_clean
+	make clean
+
+#override_dh_auto_install:
+#	dh_auto_install -- prefix=/usr
+
+#override_dh_install:
+#	dh_install --list-missing -X.pyc -X.pyo
